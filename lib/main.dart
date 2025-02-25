@@ -112,28 +112,27 @@ String getMilestoneMessage(int age) {
   @override
   Widget build(BuildContext context) {
     var counter = context.watch<Counter>();
-    int age = context.watch<Counter>().value;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Age Counter App'),
       ),
-      backgroundColor: getBackgroundColor(age),
+      backgroundColor: getBackgroundColor(counter.value),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('I am $age years old',
+            Text('I am ${counter.value} years old',
               style: TextStyle(fontSize: 24),
             ),
-            Text(getMilestoneMessage(age),
+            Text(getMilestoneMessage(counter.value),
               style: TextStyle(fontSize: 36),
             ),
             Slider(
-              value: age.toDouble(),
+              value: counter.value.toDouble(),
               min: 0,
               max: 99,
               divisions: 99,
-              label: age.toString(),
+              label: counter.value.toString(),
               onChanged: (double newValue) {
                 counter.setValue(newValue.toInt());
               },
@@ -141,9 +140,9 @@ String getMilestoneMessage(int age) {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: LinearProgressIndicator(
-                value: age / 99,
+                value: counter.value / 99,
                 backgroundColor: Colors.grey[300],
-                color: getProgressColor(age),
+                color: getProgressColor(counter.value),
               ),
             ),
             Row(
